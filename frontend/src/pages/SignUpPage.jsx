@@ -100,9 +100,6 @@ function SignUpPage() {
                   <Link to={"/login"} className="auth-link">
                     Already have an account? Login
                   </Link>
-                  <Link to={"/login"} className=" text-red-400">
-                    Forgot Password?
-                  </Link>
                 </div>
               </div>
             </div>
