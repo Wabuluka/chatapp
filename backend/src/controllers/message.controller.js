@@ -4,7 +4,6 @@ import User from "../models/User.js";
 
 export const getAllContacts = async (req, res) => {
   try {
-    console.log(req.user);
     const loggedInUserId = req.user.id;
     const filteredUsers = await User.find({
       _id: { $ne: loggedInUserId },
@@ -40,6 +39,15 @@ export const sendMessage = async (req, res) => {
     const { text, image } = req.body;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
+
+    if (!text || !image) {
+      return res.status(400).json({ message: "Text or image is required." });
+    }
+    //check for user
+    const receiverExists = await User.exists({ _id: receiverId });
+    if (!receiverExists) {
+      return res.status(400).json({ message: "Receiver not found." });
+    }
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image);
