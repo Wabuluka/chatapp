@@ -1,35 +1,35 @@
 import React, { useEffect } from "react";
 import { useChatStore } from "../store/useChatStore";
 import UsersLoadingSkeleton from "./UsersLoadingSkeleton";
+import NoChatsFound from "./NoChatsFound";
 
-function ContactList() {
-  const { getAllContacts, allContacts, setSelectedUser, isUsersLoading } =
+function ChatsList() {
+  const { getMyChatPartners, chats, isUsersLoading, setSelectedUser } =
     useChatStore();
-
   useEffect(() => {
-    getAllContacts();
-  }, [getAllContacts]);
-
+    getMyChatPartners();
+  }, [getMyChatPartners]);
   if (isUsersLoading) return <UsersLoadingSkeleton />;
+  if (chats.length === 0) return <NoChatsFound />;
   return (
     <>
-      {allContacts.map((contact) => (
+      {chats.map((chat) => (
         <div
-          key={contact._id}
+          key={chat._id}
           className="bg-cyan-500/10 p-4 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
-          onClick={() => setSelectedUser(contact)}
+          onClick={() => setSelectedUser(chat)}
         >
           <div className="flex items-center gap-3">
             <div className={`avatar avatar-online`}>
               <div className="size-12 rounded-full">
                 <img
-                  src={contact.profilePic || "/avatar.png"}
-                  alt={contact.fullname}
+                  src={chat.profilePic || "/avatar.png"}
+                  alt={chat.fullname}
                 />
               </div>
             </div>
             <h4 className="text-slate-200 font-medium truncate">
-              {contact.fullname}
+              {chat.fullname}
             </h4>
           </div>
         </div>
@@ -38,4 +38,4 @@ function ContactList() {
   );
 }
 
-export default ContactList;
+export default ChatsList;
