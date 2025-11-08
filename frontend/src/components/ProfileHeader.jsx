@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { LogOutIcon, VolumeOffIcon, Volume2Icon } from "lucide-react";
+import { LogOutIcon, VolumeOffIcon, Volume2Icon, MenuIcon } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
@@ -86,6 +86,9 @@ function ProfileHeader() {
               <VolumeOffIcon className="size-5" />
             )}
           </button>
+          {/* <button className="text-slate-400 hover:text-slate-200 transition-colors">
+            <MenuIcon className="size-5" />
+          </button> */}
         </div>
       </div>
     </div>

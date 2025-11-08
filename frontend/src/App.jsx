@@ -7,10 +7,12 @@ import { useEffect } from "react";
 import PageLoader from "./components/PageLoader";
 
 import { Toaster } from "react-hot-toast";
+import { MenuIcon } from "lucide-react";
+import { useTheme } from "./store/useTheme";
 
 function App() {
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
-
+  const { toggleMenu } = useTheme();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -40,6 +42,14 @@ function App() {
       </Routes>
 
       <Toaster />
+      <div className="fab fixed bottom-6 left-6 z-50 md:bottom-auto md:top-6">
+        <button
+          className="btn btn-lg btn-circle btn-primary"
+          onClick={toggleMenu}
+        >
+          <MenuIcon className="size-4" />
+        </button>
+      </div>
     </div>
   );
 }
